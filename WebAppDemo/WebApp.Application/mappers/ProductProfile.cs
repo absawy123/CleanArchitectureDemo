@@ -8,8 +8,8 @@ namespace WebApp.Application.mappers
     {
         public ProductProfile()
         {
-            CreateMap<AddProductDto, Product>();
-            CreateMap<UpdateProductDto, Product>();
+            CreateMap<ProductDto, Product>();
+            CreateMap<Product, GetProductDto>();
         }
 
     }

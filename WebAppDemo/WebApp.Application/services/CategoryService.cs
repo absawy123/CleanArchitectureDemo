@@ -18,9 +18,9 @@ namespace WebApp.Application.services
         }
 
 
-        public async Task AddAsync(AddCategorytDto dto)
+        public async Task AddAsync(CategoryDto dto)
         {
-            var category = _mapper.Map<AddCategorytDto, Category>(dto);
+            var category = _mapper.Map<CategoryDto, Category>(dto);
             await _unitOfWork.CategoryRepo.AddAsync(category);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -28,25 +28,25 @@ namespace WebApp.Application.services
         public async Task<Category> GetByIdAsync(int id) =>  await _unitOfWork.CategoryRepo.GetAsync(c => c.Id == id);
        
 
-        public async Task<IEnumerable<ReadCategoryDto>> GetAllAsync(Expression<Func<Category, bool>> filter = null!,
+        public async Task<IEnumerable<GetCategoryDto>> GetAllAsync(Expression<Func<Category, bool>> filter = null!,
             bool isTracked = true, int pageSize = 0, int pageNumber = 0, params Expression<Func<Category, object>>[] includes)
         {
             var categories = await _unitOfWork.CategoryRepo.GetAllAsync(filter: filter, isTracked: isTracked, pageSize: pageSize,
               pageNumber: pageNumber, includes: includes);
-            var categoryDtos = new List<ReadCategoryDto>();
+            var categoryDtos = new List<GetCategoryDto>();
 
             foreach (var category in categories)
             {
-                var categoryDto = _mapper.Map<Category, ReadCategoryDto>(category);
+                var categoryDto = _mapper.Map<Category, GetCategoryDto>(category);
                 categoryDtos.Add(categoryDto);
             }
             return categoryDtos;
         }
 
 
-        public async Task UpdateAsync(UpdateCategoryDto dto)
+        public async Task UpdateAsync(CategoryDto dto)
         {
-            var category = _mapper.Map<UpdateCategoryDto, Category>(dto);
+            var category = _mapper.Map<CategoryDto, Category>(dto);
             _unitOfWork.CategoryRepo.Update(category);
             await _unitOfWork.SaveChangesAsync();
         }

@@ -14,3 +14,7 @@ C:\Users\ascom\Desktop\Learn\CleanArchitectureDemo\WebAppDemo\WebApp.Infrastruct
 C:\Users\ascom\Desktop\Learn\CleanArchitectureDemo\WebAppDemo\WebApp.Infrastructure\obj\Debug\net8.0\refint\WebApp.Infrastructure.dll
 C:\Users\ascom\Desktop\Learn\CleanArchitectureDemo\WebAppDemo\WebApp.Infrastructure\obj\Debug\net8.0\WebApp.Infrastructure.pdb
 C:\Users\ascom\Desktop\Learn\CleanArchitectureDemo\WebAppDemo\WebApp.Infrastructure\obj\Debug\net8.0\ref\WebApp.Infrastructure.dll
+C:\Users\ascom\Desktop\Learn\CleanArchitectureDemo\WebAppDemo\WebApp.Infrastructure\bin\Debug\net8.0\WebApp.Infrastructure.runtimeconfig.json
+C:\Users\ascom\Desktop\Learn\CleanArchitectureDemo\WebAppDemo\WebApp.Infrastructure\obj\Debug\net8.0\WebApp.Infrastructure.genruntimeconfig.cache
+C:\Users\ascom\Desktop\Learn\CleanArchitectureDemo\WebAppDemo\WebApp.Infrastructure\bin\Debug\net8.0\WebApp.Application.dll
+C:\Users\ascom\Desktop\Learn\CleanArchitectureDemo\WebAppDemo\WebApp.Infrastructure\bin\Debug\net8.0\WebApp.Application.pdb

@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5BF767EB-4C4B-41A9-92F3-4BC0005D9D4C}|WebApp.Infrastructure\\WebApp.Infrastructure.csproj|c:\\users\\ascom\\desktop\\learn\\cleanarchitecturedemo\\webappdemo\\webapp.infrastructure\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BF767EB-4C4B-41A9-92F3-4BC0005D9D4C}|WebApp.Infrastructure\\WebApp.Infrastructure.csproj|solutionrelative:webapp.infrastructure\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7242FD00-9240-4296-9D90-A2B40E68D06F}|WebAppDemo.Api\\WebAppDemo.Api.csproj|c:\\users\\ascom\\desktop\\learn\\cleanarchitecturedemo\\webappdemo\\webappdemo.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7242FD00-9240-4296-9D90-A2B40E68D06F}|WebAppDemo.Api\\WebAppDemo.Api.csproj|solutionrelative:webappdemo.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7242FD00-9240-4296-9D90-A2B40E68D06F}|WebAppDemo.Api\\WebAppDemo.Api.csproj|c:\\users\\ascom\\desktop\\learn\\cleanarchitecturedemo\\webappdemo\\webappdemo.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7242FD00-9240-4296-9D90-A2B40E68D06F}|WebAppDemo.Api\\WebAppDemo.Api.csproj|solutionrelative:webappdemo.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD291362-7F4A-4D18-B8E5-448DA0C47403}|WebApp.Application\\WebApp.Application.csproj|c:\\users\\ascom\\desktop\\learn\\cleanarchitecturedemo\\webappdemo\\webapp.application\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD291362-7F4A-4D18-B8E5-448DA0C47403}|WebApp.Application\\WebApp.Application.csproj|solutionrelative:webapp.application\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD291362-7F4A-4D18-B8E5-448DA0C47403}|WebApp.Application\\WebApp.Application.csproj|c:\\users\\ascom\\desktop\\learn\\cleanarchitecturedemo\\webappdemo\\webapp.application\\dtos\\product\\getproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD291362-7F4A-4D18-B8E5-448DA0C47403}|WebApp.Application\\WebApp.Application.csproj|solutionrelative:webapp.application\\dtos\\product\\getproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BF767EB-4C4B-41A9-92F3-4BC0005D9D4C}|WebApp.Infrastructure\\WebApp.Infrastructure.csproj|c:\\users\\ascom\\desktop\\learn\\cleanarchitecturedemo\\webappdemo\\webapp.infrastructure\\repositories\\productrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BF767EB-4C4B-41A9-92F3-4BC0005D9D4C}|WebApp.Infrastructure\\WebApp.Infrastructure.csproj|solutionrelative:webapp.infrastructure\\repositories\\productrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD291362-7F4A-4D18-B8E5-448DA0C47403}|WebApp.Application\\WebApp.Application.csproj|c:\\users\\ascom\\desktop\\learn\\cleanarchitecturedemo\\webappdemo\\webapp.application\\interfaces\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD291362-7F4A-4D18-B8E5-448DA0C47403}|WebApp.Application\\WebApp.Application.csproj|solutionrelative:webapp.application\\interfaces\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70D033CB-C860-4A18-B961-1585A1AAE1AE}|WebApp.Core\\WebApp.Core.csproj|c:\\users\\ascom\\desktop\\learn\\cleanarchitecturedemo\\webappdemo\\webapp.core\\interfaces\\iproductrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70D033CB-C860-4A18-B961-1585A1AAE1AE}|WebApp.Core\\WebApp.Core.csproj|solutionrelative:webapp.core\\interfaces\\iproductrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Infrastructure\\Persistence\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "WebApp.Infrastructure\\Persistence\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Infrastructure\\Persistence\\AppDbContext.cs*",
+              "RelativeToolTip": "WebApp.Infrastructure\\Persistence\\AppDbContext.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAqwAoAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T16:05:31.645Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GetProductDto.cs",
+              "DocumentMoniker": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Application\\Dtos\\Product\\GetProductDto.cs",
+              "RelativeDocumentMoniker": "WebApp.Application\\Dtos\\Product\\GetProductDto.cs",
+              "ToolTip": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Application\\Dtos\\Product\\GetProductDto.cs",
+              "RelativeToolTip": "WebApp.Application\\Dtos\\Product\\GetProductDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T09:42:33.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProductRepo.cs",
+              "DocumentMoniker": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Infrastructure\\Repositories\\ProductRepo.cs",
+              "RelativeDocumentMoniker": "WebApp.Infrastructure\\Repositories\\ProductRepo.cs",
+              "ToolTip": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Infrastructure\\Repositories\\ProductRepo.cs",
+              "RelativeToolTip": "WebApp.Infrastructure\\Repositories\\ProductRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-20T09:27:26.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebAppDemo.Api\\Program.cs",
+              "RelativeDocumentMoniker": "WebAppDemo.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebAppDemo.Api\\Program.cs",
+              "RelativeToolTip": "WebAppDemo.Api\\Program.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T18:42:33.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IProductRepo.cs",
+              "DocumentMoniker": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Core\\Interfaces\\IProductRepo.cs",
+              "RelativeDocumentMoniker": "WebApp.Core\\Interfaces\\IProductRepo.cs",
+              "ToolTip": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Core\\Interfaces\\IProductRepo.cs",
+              "RelativeToolTip": "WebApp.Core\\Interfaces\\IProductRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T14:23:15.362Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Application\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "WebApp.Application\\Services\\ProductService.cs",
+              "ToolTip": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Application\\Services\\ProductService.cs",
+              "RelativeToolTip": "WebApp.Application\\Services\\ProductService.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAACsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T13:21:05.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Application\\Interfaces\\IProductService.cs",
+              "RelativeDocumentMoniker": "WebApp.Application\\Interfaces\\IProductService.cs",
+              "ToolTip": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebApp.Application\\Interfaces\\IProductService.cs",
+              "RelativeToolTip": "WebApp.Application\\Interfaces\\IProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T13:05:16.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebAppDemo.Api\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "WebAppDemo.Api\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\ascom\\Desktop\\Learn\\CleanArchitectureDemo\\WebAppDemo\\WebAppDemo.Api\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "WebAppDemo.Api\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAAD4AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T09:05:46.86Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
