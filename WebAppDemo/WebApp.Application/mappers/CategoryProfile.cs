@@ -8,8 +8,8 @@ namespace WebApp.Application.mappers
     {
         public CategoryProfile()
         {
-            CreateMap<AddCategorytDto, Category>();
-            CreateMap<UpdateCategoryDto, Category>();
+            CreateMap<CategoryDto, Category>();
+            CreateMap<Category, GetCategoryDto>();
         }
     }
 }

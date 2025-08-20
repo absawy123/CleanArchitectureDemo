@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApp.Application.dtos.productDtos;
-using WebApp.Application.services;
-using WebApp.Core.entities;
+using WebApp.Application.Interfaces;
 
 namespace WebAppDemo.Api.Controllers
 {
@@ -10,15 +9,15 @@ namespace WebAppDemo.Api.Controllers
     public class ProductController : ControllerBase
     {
 
-        private readonly ProductService _productService;
-        public ProductController(ProductService productService)
+        private readonly IProductService _productService;
+        public ProductController(IProductService productService)
         {
             _productService = productService;
         }
 
 
         [HttpPost("Add")]
-        public async Task<ActionResult> AddAsync(AddProductDto dto)
+        public async Task<ActionResult> AddAsync(ProductDto dto)
         {
             if (ModelState.IsValid)
             {
@@ -30,7 +29,7 @@ namespace WebAppDemo.Api.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<ReadProductDto>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<GetProductDto>>> GetAllAsync()
         {
             var products = await _productService.GetAllAsync();
             return Ok(products);
@@ -39,12 +38,12 @@ namespace WebAppDemo.Api.Controllers
 
 
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> UpdateAsync(int id, UpdateProductDto dto)
+        public async Task<ActionResult> UpdateAsync(int id, ProductDto dto)
         {
             var product = await _productService.GetByIdAsync(id);
             if (product != null)
             {
-                await _productService.UpdateAsync(dto);
+                await _productService.UpdateAsync(id,dto);
                 return Ok();
             }
             return NotFound();
