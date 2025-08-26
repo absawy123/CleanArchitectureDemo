@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApp.Application.Interfaces;
 using WebApp.Application.services;
 using WebApp.Core.interfaces;
+using WebApp.Infrastructure.Identity;
 using WebApp.Infrastructure.persistence;
 using WebApp.Infrastructure.repositories;
 
@@ -18,6 +19,7 @@ namespace WebApp.Infrastructure.Persistence
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
+            services.AddScoped<IAuthService,AuthService>();
 
             return services;
         }

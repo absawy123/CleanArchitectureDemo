@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WebApp.Core.entities;
+using WebApp.Infrastructure.Identity;
 
 namespace WebApp.Infrastructure.persistence
 {
-    public class AppDbContext :DbContext 
+    public class AppDbContext :IdentityDbContext<ApplicationUser> 
     {
 
 

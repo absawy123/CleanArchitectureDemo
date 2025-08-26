@@ -1,0 +1,23 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+
+# Others
+*.cache
+*.log
+*.pdb
+*.dbmdl
+*.dbproj.schemaview
+*.dbproj.user
+
+# Test results
+TestResult*/
