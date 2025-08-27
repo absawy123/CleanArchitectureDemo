@@ -16,9 +16,12 @@ namespace WebApp.Infrastructure.Identity
         private readonly IConfiguration _configuration;
 
 
-        public AuthService(UserManager<ApplicationUser> userManager,IConfiguration configuration)
+        public AuthService(UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IConfiguration configuration)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _configuration = configuration;
 
         }
