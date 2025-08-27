@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using WebApp.Application.mappers;
-using WebApp.Infrastructure.Identity;
+using WebApp.Core.Entities;
 using WebApp.Infrastructure.persistence;
 using WebApp.Infrastructure.Persistence;
 
@@ -64,6 +64,7 @@ namespace WebAppDemo.Api
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
