@@ -1,20 +1,20 @@
-﻿using WebApp.Application.Dtos.Auth;
-using WebApp.Application.Dtos.AuthResults;
+﻿using WebApp.Application.Common;
+using WebApp.Application.Dtos.Auth;
 
 namespace WebApp.Application.Interfaces
 {
     public interface IAuthService
     {
-        Task<AuthTokensDto?> LoginAsync(string email ,string password);
+        Task<Result<AuthTokensDto>> LoginAsync(string email ,string password);
         Task<bool> RegisterAsync(RegisterDto registerDto);
 
-        Task<ChangePasswordResult> ChangePasswordAsync(string email, string currentPassword, string newPassword);
+        Task<Result> ChangePasswordAsync(string email, string currentPassword, string newPassword);
 
-        Task<bool> GenerateOtpAsync(string email);
+        Task<Result> GenerateOtpAsync(string email);
 
-        Task<ResetPasswordResult> ResetPasswordWithOtpAsync(string email, string otp, string newPassword);
+        Task<Result> ResetPasswordWithOtpAsync(string email, string otp, string newPassword);
 
-        Task<RefreshTokenResult> RefreshAsync(string token);
+        Task<Result<AuthTokensDto>> RefreshAsync(string token);
 
 
     }

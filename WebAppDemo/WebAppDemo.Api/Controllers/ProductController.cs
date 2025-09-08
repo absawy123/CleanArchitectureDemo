@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.Application.dtos.productDtos;
 using WebApp.Application.Interfaces;
 
@@ -17,12 +18,13 @@ namespace WebAppDemo.Api.Controllers
 
 
         [HttpPost("Add")]
-        public async Task<ActionResult> AddAsync(ProductDto dto)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<GetProductDto>> AddAsync(ProductDto dto)
         {
             if (ModelState.IsValid)
             {
-                await _productService.AddAsync(dto);
-                return Created();
+                var result = await _productService.AddAsync(dto);
+                return Created("", result);
             }
             return BadRequest();
 
@@ -38,6 +40,7 @@ namespace WebAppDemo.Api.Controllers
 
 
         [HttpPut("Update/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateAsync(int id, ProductDto dto)
         {
             var product = await _productService.GetByIdAsync(id);
@@ -51,20 +54,19 @@ namespace WebAppDemo.Api.Controllers
         }
 
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             var product =await _productService.GetByIdAsync(id);
             if (product != null)
             {
                 await _productService.RemoveAsync(id);
-                return Ok();
+                return Ok("product has been deleted");
             }
             return BadRequest();
 
         }
-
-
 
     }
 }

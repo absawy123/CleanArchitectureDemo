@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApp.Application.Dtos.Auth;
 using WebApp.Application.Interfaces;
 
@@ -17,15 +16,15 @@ namespace WebAppDemo.Api.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginAsync(string email , string password )
+        public async Task<IActionResult> LoginAsync(LoginDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-            var tokens =await _authService.LoginAsync(email, password);
-            if (tokens == null)
-                return BadRequest("Invalid email or password");
+            var result = await _authService.LoginAsync(dto.Email, dto.Password);
+            if (!result.Succeeded)
+                return BadRequest(result);
 
-            return Ok(tokens);
+            return Ok(result);
 
         }
 
@@ -35,8 +34,8 @@ namespace WebAppDemo.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
             var isSuccessfull = await _authService.RegisterAsync(registerDto);
-            if(isSuccessfull)
-            return Ok();
+            if (isSuccessfull)
+                return Ok();
 
             return BadRequest("Can not register.");
         }
@@ -44,12 +43,12 @@ namespace WebAppDemo.Api.Controllers
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePasswordAsync(ChangePasswordDto dto)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest();
-            var result = await _authService.ChangePasswordAsync(dto.Email ,dto.CurrentPassword,dto.NewPassword);
-            if(!result.Succeeded)
-                return BadRequest(result.Message);
-            return Ok(result.Message);
+            var result = await _authService.ChangePasswordAsync(dto.Email, dto.CurrentPassword, dto.NewPassword);
+            if (!result.Succeeded)
+                return BadRequest(result);
+            return Ok(result);
 
 
         }
@@ -57,14 +56,14 @@ namespace WebAppDemo.Api.Controllers
         [HttpGet("forget-password")]
         public async Task<IActionResult> ForgetPasswordAsync(string email)
         {
-            if(email==null)
+            if (email == null)
                 return BadRequest("Email is required");
 
-            bool succeeded =await _authService.GenerateOtpAsync(email);
-            if (!succeeded)
-                return BadRequest("Invalid email");
+            var result = await _authService.GenerateOtpAsync(email);
+            if (!result.Succeeded)
+                return BadRequest(result);
 
-            return Ok("A 6 digits code has been sent to you");
+            return Ok(result);
         }
 
         [HttpPost("reset-password")]
@@ -74,7 +73,7 @@ namespace WebAppDemo.Api.Controllers
                 return BadRequest();
             var result = await _authService.ResetPasswordWithOtpAsync(dto.Email, dto.Otp, dto.NewPassword);
             if (result.Succeeded)
-                return Ok(result.Message);
+                return Ok(result);
 
             return NotFound(result);
 
@@ -88,9 +87,8 @@ namespace WebAppDemo.Api.Controllers
                 return BadRequest("Refresh token is required");
 
             var result = await _authService.RefreshAsync(token);
-
-            if (!result.IsAuthenticated)
-                return Unauthorized(result.Message);
+            if (!result.Succeeded)
+                return Unauthorized(result);
 
             return Ok(result);
         }

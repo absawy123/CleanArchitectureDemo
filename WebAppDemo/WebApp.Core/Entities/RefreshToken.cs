@@ -12,6 +12,6 @@
         public bool IsActive => RevokedOn == null && !IsExpired;
 
         public string UserId { get; set; } = default!;
-        public ApplicationUser User { get; set; } = default!;
+        public ApplicationUser User { get; set; } = new ApplicationUser();
     }
 }

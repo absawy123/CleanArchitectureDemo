@@ -4,12 +4,11 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using WebApp.Application.Common;
 using WebApp.Application.Dtos.Auth;
-using WebApp.Application.Dtos.AuthResults;
 using WebApp.Application.Interfaces;
 using WebApp.Core.Entities;
 
@@ -40,14 +39,14 @@ namespace WebApp.Infrastructure.Identity
 
 
 
-        public async Task<AuthTokensDto?> LoginAsync(string email, string password)
+        public async Task<Result<AuthTokensDto>> LoginAsync(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
-                return null;
+                return Result<AuthTokensDto>.Failure("Invalid email");
             var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             if (!result.Succeeded)
-                return null;
+                return Result<AuthTokensDto>.Failure("Invalid password");
 
             var accessToken = await GenerateTokenAsync(user);
             var newRefreshToken = GenerateRefreshToken(user.Id);
@@ -55,11 +54,11 @@ namespace WebApp.Infrastructure.Identity
             user.RefreshTokens.Add(newRefreshToken);
             await _userManager.UpdateAsync(user);
 
-            return new AuthTokensDto
+            return Result<AuthTokensDto>.Success(new AuthTokensDto
             {
                 AccessToken = accessToken,
                 RefreshToken = newRefreshToken.Token
-            };
+            });
 
         }
 
@@ -71,39 +70,30 @@ namespace WebApp.Infrastructure.Identity
         }
 
 
-
-        public async Task<ChangePasswordResult> ChangePasswordAsync(string email, string currentPassword, string newPassword)
+        public async Task<Result> ChangePasswordAsync(string email, string currentPassword, string newPassword)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
-                return new ChangePasswordResult { Succeeded = false, Message = "Invalid Email" };
+                return Result.Failure("Invalid email");
 
             var isCorrectPassword = await _userManager.CheckPasswordAsync(user, currentPassword);
             if (!isCorrectPassword)
-                return new ChangePasswordResult { Succeeded = false, Message = "Wrong password" };
+                return Result.Failure("Invalid password");
 
             var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
             if (!result.Succeeded)
-            {
-                return new ChangePasswordResult
-                {
-                    Succeeded = false,
-                    Message = result.Errors.FirstOrDefault().Description,
-                };
-            }
-            return new ChangePasswordResult()
-            {
-                Succeeded = true,
-                Message = "Password change successfully."
-            };
+                return Result.Failure("Cant change password", result.Errors.Select(e => e.Description).ToList());
+
+
+            return Result.Success("Password has been changed successfully ");
         }
 
 
-        public async Task<bool> GenerateOtpAsync(string email)
+        public async Task<Result> GenerateOtpAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
-                return false;
+                return Result.Failure("Invalid email");
 
             // Generate random 6-digit OTP
             var otp = new Random().Next(100000, 999999).ToString();
@@ -113,17 +103,17 @@ namespace WebApp.Infrastructure.Identity
             await _emailService.SendEmailAsync(email, "Password Reset code",
                $"Your code is {otp}");
 
-            return true;
+            return Result.Success("Otp has been sent successfully");
         }
 
-        public async Task<ResetPasswordResult> ResetPasswordWithOtpAsync(string email, string otp, string newPassword)
+        public async Task<Result> ResetPasswordWithOtpAsync(string email, string otp, string newPassword)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
-                return new ResetPasswordResult { Succeeded = false, Message = "Invalid Email" };
+                return Result.Failure("Invalid email");
 
             if (!_cache.TryGetValue($"OTP_{email}", out string? cachedOtp) || cachedOtp != otp)
-                return new ResetPasswordResult { Succeeded = false, Message = "Invalid otp code" };
+                return Result.Failure("Invalid otp");
 
 
             // 3. Generate password reset token
@@ -131,26 +121,24 @@ namespace WebApp.Infrastructure.Identity
 
             var result = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
             if (!result.Succeeded)
-                return new ResetPasswordResult { Succeeded = false, Message = "can not reset password" };
+                return Result.Failure("can not reset password", result.Errors.Select(e => e.Description).ToList());
 
             _cache.Remove($"OTP_{email}");
 
-            return new ResetPasswordResult { Succeeded = true, Message = "Password reset successfully" }; ;
+            return Result.Success("Password has been reset successfully");
 
         }
 
-
-        public async Task<RefreshTokenResult> RefreshAsync(string token)
+        // ask eng ahmed in this (performance of this query or better to use dbcontext to reach existedRefreshtoken first and then reach to user of this token)
+        public async Task<Result<AuthTokensDto>> RefreshAsync(string token)
         {
             var user = await _userManager.Users
                 .Include(u => u.RefreshTokens)
-                .FirstOrDefaultAsync(u => u.RefreshTokens.Any(r => r.Token == token && r.IsActive));
+                .FirstOrDefaultAsync(u => u.RefreshTokens.Any(r => r.Token == token && r.ExpiresOn >= DateTime.UtcNow && r.RevokedOn == null));
+
             if (user == null)
-                return new RefreshTokenResult
-                {
-                    Message = "Invaild or expired token",
-                    IsAuthenticated = false,
-                };
+                return Result<AuthTokensDto>.Failure("Invaild or expired token,Try to log in again");
+              
             var oldToken = user.RefreshTokens.First(r => r.Token == token);
             oldToken.RevokedOn = DateTime.UtcNow;
 
@@ -160,14 +148,14 @@ namespace WebApp.Infrastructure.Identity
             user.RefreshTokens.Add(newRefreshToken);
             await _userManager.UpdateAsync(user);
 
-
-            return new RefreshTokenResult
+            var refreshTokenDto = new AuthTokensDto()
             {
-                IsAuthenticated = true,
-                JwtToken = accessToken,
-                RefreshToken = newRefreshToken.Token,
+                AccessToken = accessToken,
+                RefreshToken = newRefreshToken.Token
             };
 
+            return Result<AuthTokensDto>.Success(refreshTokenDto, "Token refreshed successfully");
+           
         }
 
 

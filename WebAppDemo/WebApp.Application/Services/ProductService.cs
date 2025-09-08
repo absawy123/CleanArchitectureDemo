@@ -20,11 +20,13 @@ namespace WebApp.Application.services
         }
 
 
-        public async Task AddAsync(ProductDto dto)
+        public async Task<GetProductDto> AddAsync(ProductDto dto)
         {
             var product = _mapper.Map<ProductDto, Product>(dto);
             await _unitOfWork.ProductRepo.AddAsync(product);
             await _unitOfWork.SaveChangesAsync();
+            var productDto = _mapper.Map<GetProductDto>(product);
+            return productDto;
         }
 
         public async Task<GetProductDto> GetByIdAsync(int id)

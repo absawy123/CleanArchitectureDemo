@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using WebApp.Application.mappers;
 using WebApp.Core.Entities;
 using WebApp.Infrastructure.persistence;
@@ -21,11 +22,12 @@ namespace WebAppDemo.Api
 
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddAutoMapper(typeof(ProductProfile).Assembly);
+            builder.Services.AddMemoryCache();
 
-            var hexKey = builder.Configuration["Jwt:Key"];
-            var keyBytes = Convert.FromHexString(hexKey);
+            var key = builder.Configuration["Jwt:Key"];
+            var keyBytes = Encoding.UTF8.GetBytes(key);
 
-            builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options =>
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
@@ -36,8 +38,12 @@ namespace WebAppDemo.Api
                    .AddEntityFrameworkStores<AppDbContext>()
                    .AddDefaultTokenProviders();
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                   .AddJwtBearer(options =>
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
                    {
                        options.RequireHttpsMetadata = false;
                        options.SaveToken = true;
@@ -49,9 +55,14 @@ namespace WebAppDemo.Api
                            ValidateAudience = true,
                            ValidIssuer = builder.Configuration["Jwt:Issuer"],
                            ValidAudience = builder.Configuration["Jwt:Audience"],
-                           ClockSkew = TimeSpan.Zero
+                           ClockSkew = TimeSpan.Zero,
+
+
+                           //RoleClaimType = ClaimTypes.Role, // ?? very important
+                           //NameClaimType = ClaimTypes.Name
                        };
                    });
+
 
 
             var app = builder.Build();
