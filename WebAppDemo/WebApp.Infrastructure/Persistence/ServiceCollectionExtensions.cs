@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApp.Application.Interfaces;
 using WebApp.Application.services;
+using WebApp.Application.Services;
 using WebApp.Core.interfaces;
 using WebApp.Infrastructure.Identity;
 using WebApp.Infrastructure.persistence;
@@ -20,6 +21,8 @@ namespace WebApp.Infrastructure.Persistence
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped<IAuthService,AuthService>();
+            services.AddTransient<IEmailService, EmailService>();
+
 
             return services;
         }

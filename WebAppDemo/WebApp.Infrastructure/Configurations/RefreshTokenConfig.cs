@@ -9,6 +9,7 @@ namespace WebApp.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<RefreshToken> builder)
         {
             builder.HasKey(r => new { r.Id, r.UserId });
+            builder.Property(r => r.Id).ValueGeneratedOnAdd();
             builder.HasOne(r => r.User).WithMany(a => a.RefreshTokens).HasForeignKey(r => r.UserId);
         }
 
