@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 using WebApp.Application.mappers;
 using WebApp.Core.Entities;
 using WebApp.Infrastructure.persistence;
 using WebApp.Infrastructure.Persistence;
+using WebAppDemo.Api.Middelwares;
 
 namespace WebAppDemo.Api
 {
@@ -63,6 +65,13 @@ namespace WebAppDemo.Api
                        };
                    });
 
+            Log.Logger = new LoggerConfiguration()
+                 .MinimumLevel.Information()
+                 //.WriteTo.Console()
+                 .WriteTo.File("Logger/log-.txt", rollingInterval: RollingInterval.Day)
+                 .CreateLogger();
+
+            builder.Host.UseSerilog(); 
 
 
             var app = builder.Build();
@@ -73,6 +82,7 @@ namespace WebAppDemo.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
