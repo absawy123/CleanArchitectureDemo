@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using Serilog.Sinks.MSSqlServer;
+using Serilog.Ui.Core.Extensions;
+using Serilog.Ui.MsSqlServerProvider.Extensions;
+using Serilog.Ui.Web.Extensions;
 using System.Text;
 using WebApp.Application.mappers;
 using WebApp.Core.Entities;
@@ -59,19 +63,26 @@ namespace WebAppDemo.Api
                            ValidAudience = builder.Configuration["Jwt:Audience"],
                            ClockSkew = TimeSpan.Zero,
 
-
-                           //RoleClaimType = ClaimTypes.Role, // ?? very important
-                           //NameClaimType = ClaimTypes.Name
                        };
                    });
 
             Log.Logger = new LoggerConfiguration()
                  .MinimumLevel.Information()
-                 //.WriteTo.Console()
-                 .WriteTo.File("Logger/log-.txt", rollingInterval: RollingInterval.Day)
+                 .WriteTo.MSSqlServer(connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
+                     sinkOptions: new MSSqlServerSinkOptions
+                     {
+                         TableName = "Logs",
+                         AutoCreateSqlTable = true  
+                     })
                  .CreateLogger();
+            builder.Host.UseSerilog();
 
-            builder.Host.UseSerilog(); 
+            builder.Services.AddSerilogUi(options =>
+            {
+                options.UseSqlServer(opts =>
+                    opts.WithConnectionString(builder.Configuration.GetConnectionString("DefaultConnection")!)
+                        .WithTable("Logs"));
+            });
 
 
             var app = builder.Build();
@@ -80,6 +91,10 @@ namespace WebAppDemo.Api
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseSerilogUi(options =>
+                {
+                    options.WithRoutePrefix("serilog-ui");
+                });
             }
 
             app.UseMiddleware<ExceptionMiddleware>();

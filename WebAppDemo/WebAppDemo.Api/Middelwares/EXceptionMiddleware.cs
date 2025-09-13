@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Net;
 
 namespace WebAppDemo.Api.Middelwares
 {
@@ -21,42 +23,21 @@ namespace WebAppDemo.Api.Middelwares
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                _logger.LogError(ex, "Unhandled exception");
+                var response = new
+                {
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    ex.Message
+                };
+
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await context.Response.WriteAsJsonAsync(response);
+
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
-            HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-
-            switch (exception)
-            {
-                case ArgumentException:
-                case FormatException:  
-                    statusCode = HttpStatusCode.BadRequest;
-                    _logger.LogError(exception, "Format or argument error occurred");
-                    break;
-
-                case NullReferenceException:
-                    _logger.LogError(exception, "Null Refrence exception");
-                    break;
-
-                default:
-                    _logger.LogError(exception, "Unhandled exception");
-                    break;
-            }
-
-            var response = new
-            {
-                StatusCode = (int)statusCode,
-                exception.Message
-            };
-
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)statusCode;
-
-            await context.Response.WriteAsJsonAsync(response);
-        }
+       
     }
 
 }
