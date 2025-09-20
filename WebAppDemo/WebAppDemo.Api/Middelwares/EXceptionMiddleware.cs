@@ -23,7 +23,7 @@ namespace WebAppDemo.Api.Middelwares
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unhandled exception");
+                _logger.LogError(ex, ex.Message);
                 var response = new
                 {
                     StatusCode = (int)HttpStatusCode.InternalServerError,
