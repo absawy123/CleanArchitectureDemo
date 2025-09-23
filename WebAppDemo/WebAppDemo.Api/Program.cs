@@ -11,6 +11,7 @@ using WebApp.Application.mappers;
 using WebApp.Core.Entities;
 using WebApp.Infrastructure.persistence;
 using WebApp.Infrastructure.Persistence;
+using WebAppDemo.Api.Hubs;
 using WebAppDemo.Api.Middelwares;
 
 namespace WebAppDemo.Api
@@ -67,7 +68,7 @@ namespace WebAppDemo.Api
                    });
 
             Log.Logger = new LoggerConfiguration()
-                 .MinimumLevel.Information()
+                 .MinimumLevel.Error()
                  .WriteTo.MSSqlServer(connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
                      sinkOptions: new MSSqlServerSinkOptions
                      {
@@ -84,6 +85,7 @@ namespace WebAppDemo.Api
                         .WithTable("Logs"));
             });
 
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -103,9 +105,10 @@ namespace WebAppDemo.Api
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
-
+            app.MapHub<ChatHub>("/chatHub");
             app.Run();
         }
     }

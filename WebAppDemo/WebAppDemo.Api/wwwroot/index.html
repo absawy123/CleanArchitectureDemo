@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SignalR Chat Demo</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    #messagesList { border:1px solid #ccc; padding:10px; height:200px; overflow-y:scroll; }
+  </style>
+</head>
+<body>
+  <h2>SignalR Chat Demo</h2>
+  <div id="messagesList"></div>
+  <input type="text" id="userInput" placeholder="Your name" />
+  <input type="text" id="messageInput" placeholder="Type a message" />
+  <button id="sendButton">Send</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+  <script>
+    
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl("/chatHub")
+      .build();
+
+    connection.on("NewMessage", (user, message) => {
+      const msg = document.createElement("div");
+      msg.textContent = `${user}: ${message}`;
+      document.getElementById("messagesList").appendChild(msg);
+    });
+
+    connection.start().catch(err => console.error(err));
+
+    document.getElementById("sendButton").addEventListener("click", () => {
+      const user = document.getElementById("userInput").value || "Anonymous";
+      const message = document.getElementById("messageInput").value;
+      if (message.trim() !== "") {
+         connection.invoke("sendMessage", user, message);
+
+        document.getElementById("messageInput").value = "";
+        document.getElementById("userInput").value = "";
+      }
+    });
+  </script>
+</body>
+</html>
